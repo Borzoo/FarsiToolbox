@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="NumberToWordsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextCleanerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

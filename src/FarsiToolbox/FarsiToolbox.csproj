@@ -39,6 +39,9 @@
     <Compile Include="NumberToWords.cs" />
     <Compile Include="NumberToWordsExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextCleaner\ArabicYeKafCleaner.cs" />
+    <Compile Include="TextCleaner\TextCleaner.cs" />
+    <Compile Include="TextCleanerExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
