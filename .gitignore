@@ -1,4 +1,5 @@
 bin/
 obj/
+Release/*
 *.suo
 src/packages/*
