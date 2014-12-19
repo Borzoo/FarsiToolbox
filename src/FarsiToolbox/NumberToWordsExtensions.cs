@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FarsiToolbox
 {
+    /// <summary>
+    /// Includes extension methods for converting numbers to written Farsi
+    /// </summary>
     public static class NumberToWordsExtensions
     {
         /// <summary>
@@ -24,7 +27,7 @@ namespace FarsiToolbox
         /// <summary>
         /// Converts the passed number to ordinal written Farsi
         /// </summary>
-        /// <example>
+        /// <example>   
         /// <para>1 is converted to اول</para>
         /// <para>2 is converted to دوم</para>
         /// </example>
