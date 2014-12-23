@@ -6,7 +6,7 @@ namespace FarsiToolbox.DateAndTime
     /// <summary>
     /// Represents a Hijri Shamsi date
     /// </summary>
-    public class PersianDateTime
+    public struct PersianDateTime
     {
         /// <summary>
         /// Gets the Hijri Shamsi Year
@@ -56,6 +56,7 @@ namespace FarsiToolbox.DateAndTime
         /// <param name="second"></param>
         /// <param name="milliSecond"></param>
         public PersianDateTime(int year, int month, int day, int hour = 0, int minute = 0, int second = 0, int milliSecond = 0)
+            : this()
         {
             Year = year;
             Month = month;
@@ -71,6 +72,7 @@ namespace FarsiToolbox.DateAndTime
         /// </summary>
         /// <param name="dateTime"></param>
         public PersianDateTime(DateTime dateTime)
+            : this()
         {
             Year = _calendar.GetYear(dateTime);
             Month = _calendar.GetMonth(dateTime);
@@ -79,6 +81,26 @@ namespace FarsiToolbox.DateAndTime
             Minute = dateTime.Minute;
             Second = dateTime.Second;
             MilliSecond = dateTime.Millisecond;
+        }
+
+        /// <summary>
+        /// Explicit cast operator from PersianDateTime to DateTime (Gregorian)
+        /// </summary>
+        /// <param name="persianDateTime"></param>
+        /// <returns></returns>
+        public static explicit operator DateTime(PersianDateTime persianDateTime)
+        {
+            return _calendar.ToDateTime(persianDateTime.Year, persianDateTime.Month, persianDateTime.Day, persianDateTime.Hour, persianDateTime.Minute, persianDateTime.Second, persianDateTime.MilliSecond);
+        }
+
+        /// <summary>
+        /// Explicit cast operator from DateTime (Gregorian) to PersianDateTime
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static explicit operator PersianDateTime(DateTime dateTime)
+        {
+            return new PersianDateTime(dateTime);
         }
     }
 }
