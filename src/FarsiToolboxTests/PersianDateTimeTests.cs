@@ -8,7 +8,7 @@ namespace FarsiToolboxTests
 {
     public class PersianDateTimeTests
     {
-        public static IEnumerable<object[]> DateTimeConstructorData
+        public static IEnumerable<object[]> DateTimeAndEquivalentPersianDates
         {
             get
             {
@@ -21,17 +21,29 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
-        [PropertyData("DateTimeConstructorData")]
+        [PropertyData("DateTimeAndEquivalentPersianDates")]
         public void DateTimeConstructor(DateTime dateTime, int year, int month, int day, int hour, int minute, int second, int millisecond)
         {
-            var persianDateTime = new PersianDateTime(dateTime);
-            Assert.Equal(persianDateTime.Year, year);
-            Assert.Equal(persianDateTime.Month, month);
-            Assert.Equal(persianDateTime.Day, day);
-            Assert.Equal(persianDateTime.Hour, hour);
-            Assert.Equal(persianDateTime.Minute, minute);
-            Assert.Equal(persianDateTime.Second, second);
-            Assert.Equal(persianDateTime.MilliSecond, millisecond);
+
+            var actual = new PersianDateTime(dateTime);
+            var expected = new PersianDateTime(year, month, day, hour, minute, second, millisecond);
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [PropertyData("DateTimeAndEquivalentPersianDates")]
+        public void ExplicitCastToDateTime(DateTime dateTime, int year, int month, int day, int hour, int minute, int second, int millisecond)
+        {
+            Assert.Equal(dateTime, (DateTime)new PersianDateTime(year, month, day, hour, minute, second, millisecond));
+        }
+
+        [Theory]
+        [PropertyData("DateTimeAndEquivalentPersianDates")]
+        public void ExplicitCastFromDateTime(DateTime dateTime, int year, int month, int day, int hour, int minute, int second, int millisecond)
+        {
+            var actual = (PersianDateTime)dateTime;
+            var expected = new PersianDateTime(year, month, day, hour, minute, second, millisecond);
+            Assert.Equal(expected, actual);
         }
     }
 }
