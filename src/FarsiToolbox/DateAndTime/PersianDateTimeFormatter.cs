@@ -112,8 +112,36 @@ namespace FarsiToolbox.DateAndTime
             return (lastConsecutiveFormatCharOccurance - index);
         }
 
+        private static string GetPredefinedFormat(char format, DateTimeFormatInfo formatInfo)
+        {
+            var expandedFormat = string.Empty;
+
+            switch (format)
+            {
+                case 'g':
+                    expandedFormat = formatInfo.ShortDatePattern + " " + formatInfo.ShortTimePattern;
+                    break;
+                case 'G':
+                    expandedFormat = formatInfo.ShortDatePattern + " " + formatInfo.LongTimePattern;
+                    break;
+                default:
+                    throw new FormatException("Invalid format : " + format);
+            }
+
+            return expandedFormat;
+        }
+
         internal static string Format(PersianDateTime persianDateTime, string format, DateTimeFormatInfo formatInfo)
         {
+            if (string.IsNullOrEmpty(format))
+            {
+                format = "G";
+            }
+            if (format.Length == 1)
+            {
+                format = GetPredefinedFormat(format[0], formatInfo);
+            }
+
             var index = 0;
             var result = new StringBuilder();
 

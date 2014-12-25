@@ -47,12 +47,20 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1394, 10, 4, 14, 25, 22, 0, "y", "4")]
+=======
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "y y", "4 4")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1394, 10, 4, 14, 25, 22, 0, "yy", "94")]
         [InlineData(1394, 10, 4, 14, 25, 22, 0, "yyy", "394")]
         [InlineData(1394, 10, 4, 14, 25, 22, 0, "yyyy", "1394")]
         [InlineData(1394, 10, 4, 14, 25, 22, 0, "yyyyy", "01394")]
+<<<<<<< HEAD
         [InlineData(9, 10, 4, 14, 25, 22, 0, "y", "9")]
+=======
+        [InlineData(9, 10, 4, 14, 25, 22, 0, "y y", "9 9")]
+>>>>>>> persianDateTimeFormat
         [InlineData(9, 10, 4, 14, 25, 22, 0, "yy", "09")]
         [InlineData(9, 10, 4, 14, 25, 22, 0, "yyy", "009")]
         [InlineData(9, 10, 4, 14, 25, 22, 0, "yyyy", "0009")]
@@ -64,6 +72,7 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1394, 1, 4, 14, 25, 22, 0, "M", "1")]
         [InlineData(1394, 2, 4, 14, 25, 22, 0, "M", "2")]
         [InlineData(1394, 3, 4, 14, 25, 22, 0, "M", "3")]
@@ -76,6 +85,20 @@ namespace FarsiToolboxTests
         [InlineData(1394, 10, 4, 14, 25, 22, 0, "M", "10")]
         [InlineData(1394, 11, 4, 14, 25, 22, 0, "M", "11")]
         [InlineData(1394, 12, 4, 14, 25, 22, 0, "M", "12")]
+=======
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "M M", "1 1")]
+        [InlineData(1394, 2, 4, 14, 25, 22, 0, "M M", "2 2")]
+        [InlineData(1394, 3, 4, 14, 25, 22, 0, "M M", "3 3")]
+        [InlineData(1394, 4, 4, 14, 25, 22, 0, "M M", "4 4")]
+        [InlineData(1394, 5, 4, 14, 25, 22, 0, "M M", "5 5")]
+        [InlineData(1394, 6, 4, 14, 25, 22, 0, "M M", "6 6")]
+        [InlineData(1394, 7, 4, 14, 25, 22, 0, "M M", "7 7")]
+        [InlineData(1394, 8, 4, 14, 25, 22, 0, "M M", "8 8")]
+        [InlineData(1394, 9, 4, 14, 25, 22, 0, "M M", "9 9")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "M M", "10 10")]
+        [InlineData(1394, 11, 4, 14, 25, 22, 0, "M M", "11 11")]
+        [InlineData(1394, 12, 4, 14, 25, 22, 0, "M M", "12 12")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1394, 1, 4, 14, 25, 22, 0, "MM", "01")]
         [InlineData(1394, 2, 4, 14, 25, 22, 0, "MM", "02")]
         [InlineData(1394, 3, 4, 14, 25, 22, 0, "MM", "03")]
@@ -119,8 +142,13 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1394, 1, 4, 14, 25, 22, 0, "d", "4")]
         [InlineData(1394, 2, 10, 14, 25, 22, 0, "d", "10")]
+=======
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "d d", "4 4")]
+        [InlineData(1394, 2, 10, 14, 25, 22, 0, "d d", "10 10")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1394, 1, 4, 14, 25, 22, 0, "dd", "04")]
         [InlineData(1394, 2, 10, 14, 25, 22, 0, "dd", "10")]
         [InlineData(1393, 3, 10, 14, 25, 22, 0, "ddd", "شنبه")]
@@ -144,6 +172,7 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1393, 10, 4, 1, 0, 0, 0, "h", "1")]
         [InlineData(1393, 10, 4, 10, 0, 0, 0, "h", "10")]
         [InlineData(1393, 10, 4, 13, 0, 0, 0, "h", "1")]
@@ -153,6 +182,17 @@ namespace FarsiToolboxTests
         [InlineData(1393, 10, 4, 1, 0, 0, 0, "H", "1")]
         [InlineData(1393, 10, 4, 10, 0, 0, 0, "H", "10")]
         [InlineData(1393, 10, 4, 13, 0, 0, 0, "H", "13")]
+=======
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "h h", "1 1")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "h h", "10 10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "h h", "1 1")]
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "hh", "01")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "hh", "10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "hh", "01")]
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "H H", "1 1")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "H H", "10 10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "H H", "13 13")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1393, 10, 4, 1, 0, 0, 0, "HH", "01")]
         [InlineData(1393, 10, 4, 10, 0, 0, 0, "HH", "10")]
         [InlineData(1393, 10, 4, 13, 0, 0, 0, "HH", "13")]
@@ -163,8 +203,13 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1393, 10, 4, 0, 1, 0, 0, "m", "1")]
         [InlineData(1393, 10, 4, 0, 10, 0, 0, "m", "10")]
+=======
+        [InlineData(1393, 10, 4, 0, 1, 0, 0, "m m", "1 1")]
+        [InlineData(1393, 10, 4, 0, 10, 0, 0, "m m", "10 10")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1393, 10, 4, 0, 1, 0, 0, "mm", "01")]
         [InlineData(1393, 10, 4, 0, 10, 0, 0, "mm", "10")]
         public void ToStringWithMinuteFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
@@ -174,8 +219,13 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1393, 10, 4, 0, 1, 1, 0, "s", "1")]
         [InlineData(1393, 10, 4, 0, 10, 10, 0, "s", "10")]
+=======
+        [InlineData(1393, 10, 4, 0, 1, 1, 0, "s s", "1 1")]
+        [InlineData(1393, 10, 4, 0, 10, 10, 0, "s s", "10 10")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1393, 10, 4, 0, 1, 1, 0, "ss", "01")]
         [InlineData(1393, 10, 4, 0, 50, 50, 0, "ss", "50")]
         public void ToStringWithSecondFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
@@ -185,8 +235,13 @@ namespace FarsiToolboxTests
         }
 
         [Theory]
+<<<<<<< HEAD
         [InlineData(1393, 10, 4, 0, 1, 1, 0, "t", "ق.ظ")]
         [InlineData(1393, 10, 4, 13, 10, 10, 0, "t", "ب.ظ")]
+=======
+        [InlineData(1393, 10, 4, 0, 1, 1, 0, "t t", "ق.ظ ق.ظ")]
+        [InlineData(1393, 10, 4, 13, 10, 10, 0, "t t", "ب.ظ ب.ظ")]
+>>>>>>> persianDateTimeFormat
         [InlineData(1393, 10, 4, 11, 1, 1, 0, "tt", "ق.ظ")]
         [InlineData(1393, 10, 4, 23, 50, 50, 0, "tt", "ب.ظ")]
         public void ToStringWithAmPmDesignatorFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
@@ -194,5 +249,19 @@ namespace FarsiToolboxTests
             var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
             Assert.Equal(formattedStr, actual);
         }
+<<<<<<< HEAD
+=======
+
+        [Theory]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "04/10/1393 11:01:03 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 1, 3, 0, "04/01/1393 11:01:03 ب.ظ")]
+        [InlineData(1393, 10, 14, 0, 13, 23, 0, "14/10/1393 00:13:23 ق.ظ")]
+        [InlineData(1393, 10, 14, 23, 14, 3, 0, "14/10/1393 11:14:03 ب.ظ")]
+        public void ToStringWithEmptyFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString();
+            Assert.Equal(formattedStr, actual);
+        }
+>>>>>>> persianDateTimeFormat
     }
 }
