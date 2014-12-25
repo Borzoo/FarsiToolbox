@@ -45,5 +45,154 @@ namespace FarsiToolboxTests
             var expected = new PersianDateTime(year, month, day, hour, minute, second, millisecond);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "y", "4")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "yy", "94")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "yyy", "394")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "yyyy", "1394")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "yyyyy", "01394")]
+        [InlineData(9, 10, 4, 14, 25, 22, 0, "y", "9")]
+        [InlineData(9, 10, 4, 14, 25, 22, 0, "yy", "09")]
+        [InlineData(9, 10, 4, 14, 25, 22, 0, "yyy", "009")]
+        [InlineData(9, 10, 4, 14, 25, 22, 0, "yyyy", "0009")]
+        [InlineData(9, 10, 4, 14, 25, 22, 0, "yyyyy", "00009")]
+        public void ToStringWithYearFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "M", "1")]
+        [InlineData(1394, 2, 4, 14, 25, 22, 0, "M", "2")]
+        [InlineData(1394, 3, 4, 14, 25, 22, 0, "M", "3")]
+        [InlineData(1394, 4, 4, 14, 25, 22, 0, "M", "4")]
+        [InlineData(1394, 5, 4, 14, 25, 22, 0, "M", "5")]
+        [InlineData(1394, 6, 4, 14, 25, 22, 0, "M", "6")]
+        [InlineData(1394, 7, 4, 14, 25, 22, 0, "M", "7")]
+        [InlineData(1394, 8, 4, 14, 25, 22, 0, "M", "8")]
+        [InlineData(1394, 9, 4, 14, 25, 22, 0, "M", "9")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "M", "10")]
+        [InlineData(1394, 11, 4, 14, 25, 22, 0, "M", "11")]
+        [InlineData(1394, 12, 4, 14, 25, 22, 0, "M", "12")]
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "MM", "01")]
+        [InlineData(1394, 2, 4, 14, 25, 22, 0, "MM", "02")]
+        [InlineData(1394, 3, 4, 14, 25, 22, 0, "MM", "03")]
+        [InlineData(1394, 4, 4, 14, 25, 22, 0, "MM", "04")]
+        [InlineData(1394, 5, 4, 14, 25, 22, 0, "MM", "05")]
+        [InlineData(1394, 6, 4, 14, 25, 22, 0, "MM", "06")]
+        [InlineData(1394, 7, 4, 14, 25, 22, 0, "MM", "07")]
+        [InlineData(1394, 8, 4, 14, 25, 22, 0, "MM", "08")]
+        [InlineData(1394, 9, 4, 14, 25, 22, 0, "MM", "09")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "MM", "10")]
+        [InlineData(1394, 11, 4, 14, 25, 22, 0, "MM", "11")]
+        [InlineData(1394, 12, 4, 14, 25, 22, 0, "MM", "12")]
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "MMM", "فروردین")]
+        [InlineData(1394, 2, 4, 14, 25, 22, 0, "MMM", "اردیبهشت")]
+        [InlineData(1394, 3, 4, 14, 25, 22, 0, "MMM", "خرداد")]
+        [InlineData(1394, 4, 4, 14, 25, 22, 0, "MMM", "تیر")]
+        [InlineData(1394, 5, 4, 14, 25, 22, 0, "MMM", "مرداد")]
+        [InlineData(1394, 6, 4, 14, 25, 22, 0, "MMM", "شهریور")]
+        [InlineData(1394, 7, 4, 14, 25, 22, 0, "MMM", "مهر")]
+        [InlineData(1394, 8, 4, 14, 25, 22, 0, "MMM", "آبان")]
+        [InlineData(1394, 9, 4, 14, 25, 22, 0, "MMM", "آذر")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "MMM", "دی")]
+        [InlineData(1394, 11, 4, 14, 25, 22, 0, "MMM", "بهمن")]
+        [InlineData(1394, 12, 4, 14, 25, 22, 0, "MMM", "اسفند")]
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "MMMM", "فروردین")]
+        [InlineData(1394, 2, 4, 14, 25, 22, 0, "MMMM", "اردیبهشت")]
+        [InlineData(1394, 3, 4, 14, 25, 22, 0, "MMMM", "خرداد")]
+        [InlineData(1394, 4, 4, 14, 25, 22, 0, "MMMM", "تیر")]
+        [InlineData(1394, 5, 4, 14, 25, 22, 0, "MMMM", "مرداد")]
+        [InlineData(1394, 6, 4, 14, 25, 22, 0, "MMMM", "شهریور")]
+        [InlineData(1394, 7, 4, 14, 25, 22, 0, "MMMM", "مهر")]
+        [InlineData(1394, 8, 4, 14, 25, 22, 0, "MMMM", "آبان")]
+        [InlineData(1394, 9, 4, 14, 25, 22, 0, "MMMM", "آذر")]
+        [InlineData(1394, 10, 4, 14, 25, 22, 0, "MMMM", "دی")]
+        [InlineData(1394, 11, 4, 14, 25, 22, 0, "MMMM", "بهمن")]
+        [InlineData(1394, 12, 4, 14, 25, 22, 0, "MMMM", "اسفند")]
+        public void ToStringWithMonthFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "d", "4")]
+        [InlineData(1394, 2, 10, 14, 25, 22, 0, "d", "10")]
+        [InlineData(1394, 1, 4, 14, 25, 22, 0, "dd", "04")]
+        [InlineData(1394, 2, 10, 14, 25, 22, 0, "dd", "10")]
+        [InlineData(1393, 3, 10, 14, 25, 22, 0, "ddd", "شنبه")]
+        [InlineData(781, 1, 8, 14, 25, 22, 0, "ddd", "یکشنبه")]
+        [InlineData(1393, 2, 1, 14, 25, 22, 0, "ddd", "دوشنبه")]
+        [InlineData(1391, 12, 29, 14, 25, 22, 0, "ddd", "سه شنبه")]
+        [InlineData(1393, 2, 10, 14, 25, 22, 0, "ddd", "چهارشنبه")]
+        [InlineData(1393, 1, 7, 14, 25, 22, 0, "ddd", "پنج شنبه")]
+        [InlineData(781, 1, 6, 14, 25, 22, 0, "ddd", "جمعه")]
+        [InlineData(1393, 12, 9, 14, 25, 22, 0, "dddd", "شنبه")]
+        [InlineData(1393, 9, 16, 14, 25, 22, 0, "dddd", "یکشنبه")]
+        [InlineData(1395, 12, 30, 14, 25, 22, 0, "dddd", "دوشنبه")]
+        [InlineData(1393, 7, 8, 14, 25, 22, 0, "dddd", "سه شنبه")]
+        [InlineData(1393, 2, 10, 14, 25, 22, 0, "dddd", "چهارشنبه")]
+        [InlineData(1393, 1, 7, 14, 25, 22, 0, "dddd", "پنج شنبه")]
+        [InlineData(1393, 12, 29, 14, 25, 22, 0, "dddd", "جمعه")]
+        public void ToStringWithDayFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "h", "1")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "h", "10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "h", "1")]
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "hh", "01")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "hh", "10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "hh", "01")]
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "H", "1")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "H", "10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "H", "13")]
+        [InlineData(1393, 10, 4, 1, 0, 0, 0, "HH", "01")]
+        [InlineData(1393, 10, 4, 10, 0, 0, 0, "HH", "10")]
+        [InlineData(1393, 10, 4, 13, 0, 0, 0, "HH", "13")]
+        public void ToStringWithHourFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 0, 1, 0, 0, "m", "1")]
+        [InlineData(1393, 10, 4, 0, 10, 0, 0, "m", "10")]
+        [InlineData(1393, 10, 4, 0, 1, 0, 0, "mm", "01")]
+        [InlineData(1393, 10, 4, 0, 10, 0, 0, "mm", "10")]
+        public void ToStringWithMinuteFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 0, 1, 1, 0, "s", "1")]
+        [InlineData(1393, 10, 4, 0, 10, 10, 0, "s", "10")]
+        [InlineData(1393, 10, 4, 0, 1, 1, 0, "ss", "01")]
+        [InlineData(1393, 10, 4, 0, 50, 50, 0, "ss", "50")]
+        public void ToStringWithSecondFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 0, 1, 1, 0, "t", "ق.ظ")]
+        [InlineData(1393, 10, 4, 13, 10, 10, 0, "t", "ب.ظ")]
+        [InlineData(1393, 10, 4, 11, 1, 1, 0, "tt", "ق.ظ")]
+        [InlineData(1393, 10, 4, 23, 50, 50, 0, "tt", "ب.ظ")]
+        public void ToStringWithAmPmDesignatorFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
     }
 }

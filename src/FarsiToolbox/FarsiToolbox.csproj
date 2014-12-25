@@ -38,6 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateAndTime\PersianDateTime.cs" />
+    <Compile Include="DateAndTime\PersianDateTimeFormatter.cs" />
+    <Compile Include="DateAndTime\PersianDateTimeFormatInfo.cs" />
     <Compile Include="NumberToWords.cs" />
     <Compile Include="NumberToWordsExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

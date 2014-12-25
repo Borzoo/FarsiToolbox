@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 
 namespace FarsiToolbox.DateAndTime
 {
@@ -43,6 +46,11 @@ namespace FarsiToolbox.DateAndTime
         /// </summary>
         public int MilliSecond { get; private set; }
 
+        /// <summary>
+        /// Gets the day of week
+        /// </summary>
+        public int DayOfWeek { get; private set; }
+
         private static PersianCalendar _calendar = new PersianCalendar();
 
         /// <summary>
@@ -61,6 +69,7 @@ namespace FarsiToolbox.DateAndTime
             Year = year;
             Month = month;
             Day = day;
+            DayOfWeek = (int)_calendar.GetDayOfWeek((DateTime)this);
             Hour = hour;
             Minute = minute;
             Second = second;
@@ -72,15 +81,9 @@ namespace FarsiToolbox.DateAndTime
         /// </summary>
         /// <param name="dateTime"></param>
         public PersianDateTime(DateTime dateTime)
-            : this()
+            : this(_calendar.GetYear(dateTime), _calendar.GetMonth(dateTime), _calendar.GetDayOfMonth(dateTime),
+                   dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond)
         {
-            Year = _calendar.GetYear(dateTime);
-            Month = _calendar.GetMonth(dateTime);
-            Day = _calendar.GetDayOfMonth(dateTime);
-            Hour = dateTime.Hour;
-            Minute = dateTime.Minute;
-            Second = dateTime.Second;
-            MilliSecond = dateTime.Millisecond;
         }
 
         /// <summary>
@@ -102,5 +105,27 @@ namespace FarsiToolbox.DateAndTime
         {
             return new PersianDateTime(dateTime);
         }
+
+        /// <summary>
+        ///  Converts the value of the current PersianDateTime object to its equivalent string representation using the provided format.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        public string ToString(string format)
+        {
+            return PersianDateTimeFormatter.Format(this, format, PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
+
+        /// <summary>
+        /// Converts the value of the current PersianDateTime object to its equivalent string representation using the default format.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return PersianDateTimeFormatter.Format(this, 
+                PersianDateTimeFormatInfo.GeneralLongTimePattern,
+                PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
     }
 }
+
