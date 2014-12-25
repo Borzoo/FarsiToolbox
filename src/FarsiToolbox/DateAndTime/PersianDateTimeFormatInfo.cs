@@ -6,28 +6,6 @@ namespace FarsiToolbox.DateAndTime
     {
         internal static DateTimeFormatInfo DateTimeFormatInfo { get; private set; }
 
-        /// <summary>
-        /// Format for 'G'
-        /// </summary>
-        internal static string GeneralLongTimePattern
-        {
-            get
-            {
-                return DateTimeFormatInfo.ShortDatePattern + " " + DateTimeFormatInfo.LongTimePattern;
-            }
-        }
-
-        /// <summary>
-        /// Format for 'g'
-        /// </summary>
-        internal static string GeneralShortTimePattern
-        {
-            get
-            {
-                return DateTimeFormatInfo.ShortDatePattern + " " + DateTimeFormatInfo.ShortTimePattern;
-            }
-        }
-
         static PersianDateTimeFormatInfo()
         {
             var dtFormatInfo = DateTimeFormatInfo.GetInstance(new CultureInfo("fa"));

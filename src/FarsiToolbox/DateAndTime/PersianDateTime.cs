@@ -122,9 +122,7 @@ namespace FarsiToolbox.DateAndTime
         /// <returns></returns>
         public override string ToString()
         {
-            return PersianDateTimeFormatter.Format(this, 
-                PersianDateTimeFormatInfo.GeneralLongTimePattern,
-                PersianDateTimeFormatInfo.DateTimeFormatInfo);
+            return PersianDateTimeFormatter.Format(this, null, PersianDateTimeFormatInfo.DateTimeFormatInfo);
         }
     }
 }
