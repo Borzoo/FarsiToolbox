@@ -194,6 +194,7 @@ namespace FarsiToolboxTests
             var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
             Assert.Equal(formattedStr, actual);
         }
+
         [Theory]
         [InlineData(1393, 10, 4, 11, 1, 3, 0, "04/10/1393 11:01:03 ق.ظ")]
         [InlineData(1393, 1, 4, 23, 1, 3, 0, "04/01/1393 11:01:03 ب.ظ")]
@@ -202,6 +203,25 @@ namespace FarsiToolboxTests
         public void ToStringWithEmptyFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formattedStr)
         {
             var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString();
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "d", "04/10/1393")]
+        [InlineData(13, 10, 4, 11, 1, 3, 0, "d", "04/10/0013")]
+        [InlineData(1393, 12, 8, 11, 1, 3, 0, "d", "08/12/1393")]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "D", "پنج شنبه، 04 دی 1393")]
+        [InlineData(13, 10, 4, 11, 1, 3, 0, "D", "پنج شنبه، 04 دی 0013")]
+        [InlineData(1393, 12, 8, 11, 1, 3, 0, "D", "جمعه، 08 اسفند 1393")]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "f", "پنج شنبه، 04 دی 1393 11:01 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 1, 43, 0, "f", "دوشنبه، 04 فروردین 1393 11:01 ب.ظ")]
+        [InlineData(1393, 10, 14, 0, 13, 23, 0, "f", "یکشنبه، 14 دی 1393 00:13 ق.ظ")]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "F", "پنج شنبه، 04 دی 1393 11:01:03 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 1, 43, 0, "F", "دوشنبه، 04 فروردین 1393 11:01:43 ب.ظ")]
+        [InlineData(1393, 10, 14, 0, 13, 23, 100, "F", "یکشنبه، 14 دی 1393 00:13:23 ق.ظ")]
+        public void ToStringWithGeneralFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
             Assert.Equal(formattedStr, actual);
         }
     }

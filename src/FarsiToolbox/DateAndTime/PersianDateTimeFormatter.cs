@@ -11,7 +11,7 @@ namespace FarsiToolbox.DateAndTime
         {
             { 'y', GetFormattedYear },
             { 'M', GetFormattedMonth },
-            { 'd',  GetFormattedDay},
+            { 'd', GetFormattedDay},
             { 'h', GetFormattedHour12},
             { 'H', GetFormattedHour24},
             { 'm', GetFormattedMinute},
@@ -123,6 +123,18 @@ namespace FarsiToolbox.DateAndTime
                     break;
                 case 'G':
                     expandedFormat = formatInfo.ShortDatePattern + " " + formatInfo.LongTimePattern;
+                    break;
+                case 'd':
+                    expandedFormat = formatInfo.ShortDatePattern;
+                    break;
+                case 'D':
+                    expandedFormat = formatInfo.LongDatePattern;
+                    break;
+                case 'f':
+                    expandedFormat = formatInfo.LongDatePattern + " " + formatInfo.ShortTimePattern;
+                    break;
+                case 'F':
+                    expandedFormat = formatInfo.FullDateTimePattern;
                     break;
                 default:
                     throw new FormatException("Invalid format : " + format);
