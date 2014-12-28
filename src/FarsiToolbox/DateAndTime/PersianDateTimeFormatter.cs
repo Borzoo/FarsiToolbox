@@ -130,6 +130,12 @@ namespace FarsiToolbox.DateAndTime
                 case 'D':
                     expandedFormat = formatInfo.LongDatePattern;
                     break;
+                case 't':
+                    expandedFormat = formatInfo.ShortTimePattern;
+                    break;
+                case 'T':
+                    expandedFormat = formatInfo.LongTimePattern;
+                    break;
                 case 'f':
                     expandedFormat = formatInfo.LongDatePattern + " " + formatInfo.ShortTimePattern;
                     break;

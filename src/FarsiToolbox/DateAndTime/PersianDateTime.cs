@@ -124,6 +124,42 @@ namespace FarsiToolbox.DateAndTime
         {
             return PersianDateTimeFormatter.Format(this, null, PersianDateTimeFormatInfo.DateTimeFormatInfo);
         }
+
+        /// <summary>
+        /// Converts the value of the current PersianDateTime object to long time string format.
+        /// </summary>
+        /// <returns></returns>
+        public string ToLongTimeString()
+        {
+            return PersianDateTimeFormatter.Format(this, "T", PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
+
+        /// <summary>
+        /// Converts the value of the current PersianDateTime object to short time string format.
+        /// </summary>
+        /// <returns></returns>
+        public string ToShortTimeString()
+        {
+            return PersianDateTimeFormatter.Format(this, "t", PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
+
+        /// <summary>
+        /// Converts the value of the current PersianDateTime object to long Date string format.
+        /// </summary>
+        /// <returns></returns>
+        public string ToLongDateString()
+        {
+            return PersianDateTimeFormatter.Format(this, "D", PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
+
+        /// <summary>
+        /// Converts the value of the current PersianDateTime object to short date string format.
+        /// </summary>
+        /// <returns></returns>
+        public string ToShortDateString()
+        {
+            return PersianDateTimeFormatter.Format(this, "d", PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
     }
 }
 

@@ -213,6 +213,12 @@ namespace FarsiToolboxTests
         [InlineData(1393, 10, 4, 11, 1, 3, 0, "D", "پنج شنبه، 04 دی 1393")]
         [InlineData(13, 10, 4, 11, 1, 3, 0, "D", "پنج شنبه، 04 دی 0013")]
         [InlineData(1393, 12, 8, 11, 1, 3, 0, "D", "جمعه، 08 اسفند 1393")]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "t", "11:01 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 1, 43, 0, "t", "11:01 ب.ظ")]
+        [InlineData(1393, 10, 14, 0, 13, 23, 0, "t", "00:13 ق.ظ")]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "T", "11:01:03 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 1, 43, 0, "T", "11:01:43 ب.ظ")]
+        [InlineData(1393, 10, 14, 0, 0, 0, 100, "T", "00:00:00 ق.ظ")]
         [InlineData(1393, 10, 4, 11, 1, 3, 0, "f", "پنج شنبه، 04 دی 1393 11:01 ق.ظ")]
         [InlineData(1393, 1, 4, 23, 1, 43, 0, "f", "دوشنبه، 04 فروردین 1393 11:01 ب.ظ")]
         [InlineData(1393, 10, 14, 0, 13, 23, 0, "f", "یکشنبه، 14 دی 1393 00:13 ق.ظ")]
@@ -222,6 +228,48 @@ namespace FarsiToolboxTests
         public void ToStringWithGeneralFormat(int year, int month, int day, int hour, int minute, int second, int millisecond, string formatStr, string formattedStr)
         {
             var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToString(formatStr);
+            Assert.Equal(formattedStr, actual);
+        }
+
+
+        [Theory]
+        [InlineData(1250, 10, 4, 11, 1, 3, 0, "04/10/1250")]
+        [InlineData(13, 10, 4, 11, 1, 3, 0, "04/10/0013")]
+        [InlineData(1, 12, 8, 11, 1, 3, 0, "08/12/0001")]
+        [InlineData(1967, 12, 8, 11, 1, 3, 0, "08/12/1967")]
+        public void ToShortDateString(int year, int month, int day, int hour, int minute, int second, int millisecond, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToShortDateString();
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "پنج شنبه، 04 دی 1393")]
+        [InlineData(1, 10, 4, 11, 1, 3, 0, "چهارشنبه، 04 دی 0001")]
+        [InlineData(1898, 12, 8, 11, 1, 3, 0, "سه شنبه، 08 اسفند 1898")]
+        public void ToLongDateString(int year, int month, int day, int hour, int minute, int second, int millisecond, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToLongDateString();
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 11, 1, 3, 0, "11:01 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 1, 43, 0, "11:01 ب.ظ")]
+        [InlineData(1393, 10, 14, 0, 13, 23, 0, "00:13 ق.ظ")]
+        public void ToShortTimeString(int year, int month, int day, int hour, int minute, int second, int millisecond, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToShortTimeString();
+            Assert.Equal(formattedStr, actual);
+        }
+
+        [Theory]
+        [InlineData(1393, 10, 4, 0, 0, 0, 0, "00:00:00 ق.ظ")]
+        [InlineData(1393, 1, 4, 23, 59, 59, 999, "11:59:59 ب.ظ")]
+        [InlineData(1393, 10, 14, 1, 0, 0, 100, "01:00:00 ق.ظ")]
+        public void ToLongTimeString(int year, int month, int day, int hour, int minute, int second, int millisecond, string formattedStr)
+        {
+            var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToLongTimeString();
             Assert.Equal(formattedStr, actual);
         }
     }
