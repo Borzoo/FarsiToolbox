@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
+[assembly:InternalsVisibleTo("FarsiToolboxTests")]
 namespace FarsiToolbox.DateAndTime
 {
     /// <summary>
@@ -11,6 +13,23 @@ namespace FarsiToolbox.DateAndTime
     /// </summary>
     public struct PersianDateTime
     {
+        private static SystemClock _clock;
+
+        /// <summary>
+        /// Gets of sets the current clock of the system.
+        /// </summary>
+        internal static SystemClock Clock
+        {
+            get
+            {
+                return _clock ?? (_clock = new SystemClock());
+            }
+            set
+            {
+                _clock = value;
+            }
+        }
+
         /// <summary>
         /// Gets the Hijri Shamsi Year
         /// </summary>
@@ -160,6 +179,27 @@ namespace FarsiToolbox.DateAndTime
         {
             return PersianDateTimeFormatter.Format(this, "d", PersianDateTimeFormatInfo.DateTimeFormatInfo);
         }
+
+        /// <summary>
+        /// Gets a PersianDateTime instance representing Now
+        /// </summary>
+        public static PersianDateTime Now
+        {
+            get
+            {
+                return new PersianDateTime(Clock.Now);
+            }
+        }
+
+        /// <summary>
+        /// Gets a PersianDateTime instance representing Today
+        /// </summary>
+        public static PersianDateTime Today
+        {
+            get
+            {
+                return new PersianDateTime(Clock.Now.Date);
+            }
+        }
     }
 }
-

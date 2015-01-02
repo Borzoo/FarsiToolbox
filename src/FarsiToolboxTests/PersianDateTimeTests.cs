@@ -3,6 +3,7 @@ using FarsiToolbox.DateAndTime;
 using Xunit.Extensions;
 using Xunit;
 using System.Collections.Generic;
+using Moq;
 
 namespace FarsiToolboxTests
 {
@@ -271,6 +272,26 @@ namespace FarsiToolboxTests
         {
             var actual = new PersianDateTime(year, month, day, hour, minute, second, millisecond).ToLongTimeString();
             Assert.Equal(formattedStr, actual);
+        }
+
+        [Fact]
+        public void Now_ReturnsCorrectPersianDateTime()
+        {
+            var systemClockStub = new Mock<SystemClock>();
+            systemClockStub.SetupGet(x => x.Now).Returns(new DateTime(2015, 1, 1, 23, 59, 59));
+            PersianDateTime.Clock = systemClockStub.Object;
+
+            Assert.Equal(new PersianDateTime(1393, 10, 11, 23, 59, 59), PersianDateTime.Now);
+        }
+
+        [Fact]
+        public void Today_ReturnsCorrectPersianDateTime()
+        {
+            var systemClockStub = new Mock<SystemClock>();
+            systemClockStub.SetupGet(x => x.Now).Returns(new DateTime(2015, 1, 1, 23, 59, 59));
+            PersianDateTime.Clock = systemClockStub.Object;
+
+            Assert.Equal(new PersianDateTime(1393, 10, 11, 0, 0, 0), PersianDateTime.Today);
         }
     }
 }
