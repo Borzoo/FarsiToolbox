@@ -16,5 +16,15 @@ namespace FarsiToolbox
         {
             return new ArabicYeKafCleaner().Clean(input);
         }
+
+        /// <summary>
+        /// Replaces redundant and duplicate white space characters
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string ReplaceRedundantWhitespace(this string input)
+        {
+            return new SpaceCleaner().Clean(input);
+        }
     }
 }
