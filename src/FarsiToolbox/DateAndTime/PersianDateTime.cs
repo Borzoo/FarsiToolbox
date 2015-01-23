@@ -375,5 +375,15 @@ namespace FarsiToolbox.DateAndTime
         {
             return _calendar.GetDaysInMonth(year, month);
         }
+
+        /// <summary>
+        /// Returns a value that indicates whether the specified year is a leap year
+        /// </summary>
+        /// <param name="year">The year</param>
+        /// <returns></returns>
+        public static bool IsLeapYear(int year)
+        {
+            return _calendar.IsLeapYear(year);
+        }
     }
 }

@@ -454,5 +454,16 @@ namespace FarsiToolboxTests
         {
             Assert.Equal(expetedDays, PersianDateTime.DaysInMonth(year, month));
         }
+
+        [Theory]
+        [InlineData(1391, true)]
+        [InlineData(1392, false)]
+        [InlineData(1393, false)]
+        [InlineData(1394, false)]
+        [InlineData(1395, true)]
+        public void IsLeapYear(int year, bool expected)
+        {
+            Assert.Equal(expected, PersianDateTime.IsLeapYear(year));
+        }
     }
 }
