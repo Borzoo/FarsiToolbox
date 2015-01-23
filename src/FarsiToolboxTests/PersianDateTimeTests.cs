@@ -431,5 +431,18 @@ namespace FarsiToolboxTests
         {
             Assert.Equal(expected, PersianDateTime.Compare(pdt1, pdt2));
         }
+
+        [Fact]
+        public void Ticks()
+        {
+            Assert.Equal(635576316690670000, new PersianDateTime(1393, 11, 3, 17, 41, 9, 67).Ticks);
+            Assert.Equal(635576316750670000, new PersianDateTime(1393, 11, 3, 17, 41, 15, 67).Ticks);
+        }
+
+        [Fact]
+        public void TimeOfDay()
+        {
+            Assert.Equal(new TimeSpan(0, 17, 41, 9, 67), new PersianDateTime(1393, 11, 3, 17, 41, 9, 67).TimeOfDay);
+        }
     }
 }
