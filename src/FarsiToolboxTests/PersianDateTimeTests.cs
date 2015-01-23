@@ -21,6 +21,46 @@ namespace FarsiToolboxTests
             }
         }
 
+        public static IEnumerable<object[]> PersianDateAndObjectForEqualityTest
+        {
+            get
+            {
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 1, 23, 16, 37, 52, 10), true };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 1, 23, 16, 37, 52, 9), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 1, 23, 16, 37, 53, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 1, 23, 16, 32, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 1, 23, 11, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 1, 22, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new DateTime(2015, 2, 23, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), true };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 11, 3, 16, 37, 52, 9), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 11, 3, 16, 37, 53, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 11, 3, 16, 38, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 11, 3, 15, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 11, 4, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1393, 12, 3, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), (object)new PersianDateTime(1394, 11, 3, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), null, false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new Object(), false };
+            }
+        }
+
+        public static IEnumerable<object[]> PersianDateAndPersianDateForEqualityTest
+        {
+            get
+            {
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), true };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 11, 3, 16, 37, 52, 9), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 11, 3, 16, 37, 53, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 11, 3, 16, 38, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 11, 3, 15, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 11, 4, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1393, 12, 3, 16, 37, 52, 10), false };
+                yield return new object[] { new PersianDateTime(1393, 11, 3, 16, 37, 52, 10), new PersianDateTime(1394, 11, 3, 16, 37, 52, 10), false };
+            }
+        }
+
+
         [Theory]
         [PropertyData("DateTimeAndEquivalentPersianDates")]
         public void DateTimeConstructor(DateTime dateTime, int year, int month, int day, int hour, int minute, int second, int millisecond)
@@ -292,6 +332,20 @@ namespace FarsiToolboxTests
             PersianDateTime.Clock = systemClockStub.Object;
 
             Assert.Equal(new PersianDateTime(1393, 10, 11, 0, 0, 0), PersianDateTime.Today);
+        }
+
+        [Theory]
+        [PropertyData("PersianDateAndObjectForEqualityTest")]
+        public void ObjectEquals(PersianDateTime pdt, object obj, bool expected)
+        {
+            Assert.Equal(expected, pdt.Equals(obj));
+        }
+
+        [Theory]
+        [PropertyData("PersianDateAndPersianDateForEqualityTest")]
+        public void PersianDateTimeEquals(PersianDateTime pdt1, PersianDateTime pdt2, bool expected)
+        {
+            Assert.Equal(expected, pdt1.Equals(pdt2));
         }
     }
 }

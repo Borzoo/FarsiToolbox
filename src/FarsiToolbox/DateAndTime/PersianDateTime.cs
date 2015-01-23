@@ -5,13 +5,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-[assembly:InternalsVisibleTo("FarsiToolboxTests")]
+[assembly: InternalsVisibleTo("FarsiToolboxTests")]
 namespace FarsiToolbox.DateAndTime
 {
     /// <summary>
     /// Represents a Hijri Shamsi date
     /// </summary>
-    public struct PersianDateTime
+    public struct PersianDateTime : IComparable, IEquatable<PersianDateTime>
     {
         private static SystemClock _clock;
 
@@ -103,6 +103,7 @@ namespace FarsiToolbox.DateAndTime
             : this(_calendar.GetYear(dateTime), _calendar.GetMonth(dateTime), _calendar.GetDayOfMonth(dateTime),
                    dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond)
         {
+            Ticks = dateTime.Ticks;
         }
 
         /// <summary>
@@ -123,6 +124,65 @@ namespace FarsiToolbox.DateAndTime
         public static explicit operator PersianDateTime(DateTime dateTime)
         {
             return new PersianDateTime(dateTime);
+        }
+
+        /// <summary>
+        /// Determines whether two instances of PersianDateTime are equal
+        /// </summary>
+        /// <param name="pdt1">First instance</param>
+        /// <param name="pdt2">Second instance</param>
+        /// <returns></returns>
+        public static bool operator ==(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return pdt1.Year == pdt2.Year
+                && pdt1.Month == pdt2.Month
+                && pdt1.Day == pdt2.Day
+                && pdt1.Hour == pdt2.Hour
+                && pdt1.Minute == pdt2.Minute
+                && pdt1.Second == pdt2.Second
+                && pdt1.MilliSecond == pdt2.MilliSecond;
+        }
+
+        /// <summary>
+        /// Determines whether two instances of PersianDateTime are not equal
+        /// </summary>
+        /// <param name="pdt1">First instance</param>
+        /// <param name="pdt2">Second instance</param>
+        /// <returns></returns>
+        public static bool operator !=(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return !(pdt1 == pdt2);
+        }
+
+        /// <summary>
+        /// Returns a value that indicates whether the value of this instance is equal to the value of the specified object
+        /// </summary>
+        /// <param name="obj">The object to compare to this instance</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is DateTime)
+            {
+                return this == (PersianDateTime)(DateTime)obj;
+            }
+            else if (obj is PersianDateTime)
+            {
+                return this == (PersianDateTime)obj;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns the hash code for this instance
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            //taken from DateTime.GetHashCode
+            return (((int)Ticks) ^ ((int)(Ticks >> 0x20)));
         }
 
         /// <summary>
@@ -200,6 +260,108 @@ namespace FarsiToolbox.DateAndTime
             {
                 return new PersianDateTime(Clock.Now.Date);
             }
+        }
+
+        /// <summary>
+        /// Compares two instances of PersianDateTime and returns an integer that indicates whether the first instance is earlier than, the same as or later 
+        /// than the second instance
+        /// </summary>
+        /// <param name="t1">The first instance to compare</param>
+        /// <param name="t2">The second instance to compare</param>
+        /// <returns></returns>
+        public static int Compare(PersianDateTime t1, PersianDateTime t2)
+        {
+            return t1.CompareTo(t2);
+        }
+
+        /// <summary>
+        /// Compares this instance with the specified object that contains the specified PersianDateTime or DateTime and returns an integer
+        /// that indicates whether this instance is earlier, the same as or later than the specified PersianDateTime or DateTime value.
+        /// </summary>
+        /// <param name="obj">A boxed object or null</param>
+        /// <returns></returns>
+        public int CompareTo(object obj)
+        {
+            if (obj is PersianDateTime)
+            {
+                return this.CompareTo((PersianDateTime)obj);
+            }
+            else if (obj is DateTime)
+            {
+                return this.CompareTo((PersianDateTime)(DateTime)obj);
+            }
+            else
+            {
+                throw new ArgumentException("Object must be of type PersianDateTime or DateTime.");
+            }
+        }
+
+        /// <summary>
+        /// Compares this instance with the specified PersianDateTime and returns an integer that indicates whether this instance
+        /// is earlier, the same as or later than the specified PersianDateTime or DateTime value.
+        /// </summary>
+        /// <param name="pdt">The object to compare to current instance</param>
+        /// <returns></returns>
+        public int CompareTo(PersianDateTime pdt)
+        {
+            if (this == pdt)
+            {
+                return 0;
+            }
+            else if (this.Year != pdt.Year)
+            {
+                return this.Year > pdt.Year ? 1 : -1;
+            }
+            else if (this.Month != pdt.Month)
+            {
+                return this.Month > pdt.Month ? 1 : -1;
+            }
+            else if (this.Day != pdt.Day)
+            {
+                return this.Day > pdt.Day ? 1 : -1;
+            }
+            else
+            {
+                return this.TimeOfDay.CompareTo(pdt.TimeOfDay);
+            }
+        }
+
+        private long? _ticks;
+        /// <summary>
+        /// Gets the number of ticks that represent the date and time of this instance
+        /// </summary>
+        public long Ticks
+        {
+            get
+            {
+                return (_ticks ?? (_ticks = ((DateTime)this).Ticks)).Value;
+            }
+            private set
+            {
+                this._ticks = value;
+            }
+        }
+
+        private TimeSpan? _timeOfDay;
+        /// <summary>
+        /// Gets the time of day for this instance
+        /// </summary>
+        public TimeSpan TimeOfDay
+        {
+            get
+            {
+                return (_timeOfDay ?? (_timeOfDay = new TimeSpan(0, this.Hour, this.Minute, this.Second, this.MilliSecond))).Value;
+            }
+        }
+
+        /// <summary>
+        /// Returns a value that indicates whether this instance is equal to the specified PersianDateTime instance
+        /// </summary>
+        /// <param name="other">The object to compare to current instance</param>
+        /// <returns></returns>
+        public bool Equals(PersianDateTime other)
+        {
+            return this == other;
         }
     }
 }
