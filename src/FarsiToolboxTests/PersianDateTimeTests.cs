@@ -444,5 +444,15 @@ namespace FarsiToolboxTests
         {
             Assert.Equal(new TimeSpan(0, 17, 41, 9, 67), new PersianDateTime(1393, 11, 3, 17, 41, 9, 67).TimeOfDay);
         }
+
+        [Theory]
+        [InlineData(1393, 1, 31)]
+        [InlineData(1393, 7, 30)]
+        [InlineData(1393, 12, 29)]
+        [InlineData(1395, 12, 30)]
+        public void DaysInMonth(int year, int month, int expetedDays)
+        {
+            Assert.Equal(expetedDays, PersianDateTime.DaysInMonth(year, month));
+        }
     }
 }

@@ -363,5 +363,17 @@ namespace FarsiToolbox.DateAndTime
         {
             return this == other;
         }
+
+        /// <summary>
+        /// Returns days in specified month of the specified year
+        /// </summary>
+        /// <param name="year">The year</param>
+        /// <param name="month">The month - between 1 and 12</param>
+        /// <returns>The number of days in month. Takes leap years into account.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
+        public static int DaysInMonth(int year, int month)
+        {
+            return _calendar.GetDaysInMonth(year, month);
+        }
     }
 }
