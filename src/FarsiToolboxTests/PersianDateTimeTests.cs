@@ -424,5 +424,12 @@ namespace FarsiToolboxTests
         {
             Assert.Equal(expected, pdt1.CompareTo(pdt2));
         }
+
+        [Theory]
+        [PropertyData("PersianDateTimeAndPersianDateTimeCompareToTest")]
+        public void PersianDateTimeComopare(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
+        {
+            Assert.Equal(expected, PersianDateTime.Compare(pdt1, pdt2));
+        }
     }
 }
