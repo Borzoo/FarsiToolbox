@@ -13,6 +13,8 @@ namespace FarsiToolbox.DateAndTime
     /// </summary>
     public struct PersianDateTime : IComparable, IEquatable<PersianDateTime>
     {
+        private static PersianCalendar _calendar = new PersianCalendar();
+
         private static SystemClock _clock;
 
         /// <summary>
@@ -27,6 +29,28 @@ namespace FarsiToolbox.DateAndTime
             set
             {
                 _clock = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets a PersianDateTime instance representing Now
+        /// </summary>
+        public static PersianDateTime Now
+        {
+            get
+            {
+                return new PersianDateTime(Clock.Now);
+            }
+        }
+
+        /// <summary>
+        /// Gets a PersianDateTime instance representing Today
+        /// </summary>
+        public static PersianDateTime Today
+        {
+            get
+            {
+                return new PersianDateTime(Clock.Now.Date);
             }
         }
 
@@ -70,7 +94,33 @@ namespace FarsiToolbox.DateAndTime
         /// </summary>
         public int DayOfWeek { get; private set; }
 
-        private static PersianCalendar _calendar = new PersianCalendar();
+        private long? _ticks;
+        /// <summary>
+        /// Gets the number of ticks that represent the date and time of this instance
+        /// </summary>
+        public long Ticks
+        {
+            get
+            {
+                return (_ticks ?? (_ticks = ((DateTime)this).Ticks)).Value;
+            }
+            private set
+            {
+                this._ticks = value;
+            }
+        }
+
+        private TimeSpan? _timeOfDay;
+        /// <summary>
+        /// Gets the time of day for this instance
+        /// </summary>
+        public TimeSpan TimeOfDay
+        {
+            get
+            {
+                return (_timeOfDay ?? (_timeOfDay = new TimeSpan(0, this.Hour, this.Minute, this.Second, this.MilliSecond))).Value;
+            }
+        }
 
         /// <summary>
         /// Creates an instance of PersianDateTime
@@ -107,54 +157,6 @@ namespace FarsiToolbox.DateAndTime
         }
 
         /// <summary>
-        /// Explicit cast operator from PersianDateTime to DateTime (Gregorian)
-        /// </summary>
-        /// <param name="persianDateTime"></param>
-        /// <returns></returns>
-        public static explicit operator DateTime(PersianDateTime persianDateTime)
-        {
-            return _calendar.ToDateTime(persianDateTime.Year, persianDateTime.Month, persianDateTime.Day, persianDateTime.Hour, persianDateTime.Minute, persianDateTime.Second, persianDateTime.MilliSecond);
-        }
-
-        /// <summary>
-        /// Explicit cast operator from DateTime (Gregorian) to PersianDateTime
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
-        public static explicit operator PersianDateTime(DateTime dateTime)
-        {
-            return new PersianDateTime(dateTime);
-        }
-
-        /// <summary>
-        /// Determines whether two instances of PersianDateTime are equal
-        /// </summary>
-        /// <param name="pdt1">First instance</param>
-        /// <param name="pdt2">Second instance</param>
-        /// <returns></returns>
-        public static bool operator ==(PersianDateTime pdt1, PersianDateTime pdt2)
-        {
-            return pdt1.Year == pdt2.Year
-                && pdt1.Month == pdt2.Month
-                && pdt1.Day == pdt2.Day
-                && pdt1.Hour == pdt2.Hour
-                && pdt1.Minute == pdt2.Minute
-                && pdt1.Second == pdt2.Second
-                && pdt1.MilliSecond == pdt2.MilliSecond;
-        }
-
-        /// <summary>
-        /// Determines whether two instances of PersianDateTime are not equal
-        /// </summary>
-        /// <param name="pdt1">First instance</param>
-        /// <param name="pdt2">Second instance</param>
-        /// <returns></returns>
-        public static bool operator !=(PersianDateTime pdt1, PersianDateTime pdt2)
-        {
-            return !(pdt1 == pdt2);
-        }
-
-        /// <summary>
         /// Returns a value that indicates whether the value of this instance is equal to the value of the specified object
         /// </summary>
         /// <param name="obj">The object to compare to this instance</param>
@@ -186,6 +188,15 @@ namespace FarsiToolbox.DateAndTime
         }
 
         /// <summary>
+        /// Converts the value of the current PersianDateTime object to its equivalent string representation using the default format.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return PersianDateTimeFormatter.Format(this, null, PersianDateTimeFormatInfo.DateTimeFormatInfo);
+        }
+
+        /// <summary>
         ///  Converts the value of the current PersianDateTime object to its equivalent string representation using the provided format.
         /// </summary>
         /// <param name="format"></param>
@@ -193,15 +204,6 @@ namespace FarsiToolbox.DateAndTime
         public string ToString(string format)
         {
             return PersianDateTimeFormatter.Format(this, format, PersianDateTimeFormatInfo.DateTimeFormatInfo);
-        }
-
-        /// <summary>
-        /// Converts the value of the current PersianDateTime object to its equivalent string representation using the default format.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return PersianDateTimeFormatter.Format(this, null, PersianDateTimeFormatInfo.DateTimeFormatInfo);
         }
 
         /// <summary>
@@ -238,40 +240,6 @@ namespace FarsiToolbox.DateAndTime
         public string ToShortDateString()
         {
             return PersianDateTimeFormatter.Format(this, "d", PersianDateTimeFormatInfo.DateTimeFormatInfo);
-        }
-
-        /// <summary>
-        /// Gets a PersianDateTime instance representing Now
-        /// </summary>
-        public static PersianDateTime Now
-        {
-            get
-            {
-                return new PersianDateTime(Clock.Now);
-            }
-        }
-
-        /// <summary>
-        /// Gets a PersianDateTime instance representing Today
-        /// </summary>
-        public static PersianDateTime Today
-        {
-            get
-            {
-                return new PersianDateTime(Clock.Now.Date);
-            }
-        }
-
-        /// <summary>
-        /// Compares two instances of PersianDateTime and returns an integer that indicates whether the first instance is earlier than, the same as or later 
-        /// than the second instance
-        /// </summary>
-        /// <param name="t1">The first instance to compare</param>
-        /// <param name="t2">The second instance to compare</param>
-        /// <returns></returns>
-        public static int Compare(PersianDateTime t1, PersianDateTime t2)
-        {
-            return t1.CompareTo(t2);
         }
 
         /// <summary>
@@ -326,34 +294,6 @@ namespace FarsiToolbox.DateAndTime
             }
         }
 
-        private long? _ticks;
-        /// <summary>
-        /// Gets the number of ticks that represent the date and time of this instance
-        /// </summary>
-        public long Ticks
-        {
-            get
-            {
-                return (_ticks ?? (_ticks = ((DateTime)this).Ticks)).Value;
-            }
-            private set
-            {
-                this._ticks = value;
-            }
-        }
-
-        private TimeSpan? _timeOfDay;
-        /// <summary>
-        /// Gets the time of day for this instance
-        /// </summary>
-        public TimeSpan TimeOfDay
-        {
-            get
-            {
-                return (_timeOfDay ?? (_timeOfDay = new TimeSpan(0, this.Hour, this.Minute, this.Second, this.MilliSecond))).Value;
-            }
-        }
-
         /// <summary>
         /// Returns a value that indicates whether this instance is equal to the specified PersianDateTime instance
         /// </summary>
@@ -362,6 +302,18 @@ namespace FarsiToolbox.DateAndTime
         public bool Equals(PersianDateTime other)
         {
             return this == other;
+        }
+
+        /// <summary>
+        /// Compares two instances of PersianDateTime and returns an integer that indicates whether the first instance is earlier than, the same as or later 
+        /// than the second instance
+        /// </summary>
+        /// <param name="t1">The first instance to compare</param>
+        /// <param name="t2">The second instance to compare</param>
+        /// <returns></returns>
+        public static int Compare(PersianDateTime t1, PersianDateTime t2)
+        {
+            return t1.CompareTo(t2);
         }
 
         /// <summary>
@@ -384,6 +336,54 @@ namespace FarsiToolbox.DateAndTime
         public static bool IsLeapYear(int year)
         {
             return _calendar.IsLeapYear(year);
+        }
+
+        /// <summary>
+        /// Explicit cast operator from PersianDateTime to DateTime (Gregorian)
+        /// </summary>
+        /// <param name="persianDateTime"></param>
+        /// <returns></returns>
+        public static explicit operator DateTime(PersianDateTime persianDateTime)
+        {
+            return _calendar.ToDateTime(persianDateTime.Year, persianDateTime.Month, persianDateTime.Day, persianDateTime.Hour, persianDateTime.Minute, persianDateTime.Second, persianDateTime.MilliSecond);
+        }
+
+        /// <summary>
+        /// Explicit cast operator from DateTime (Gregorian) to PersianDateTime
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public static explicit operator PersianDateTime(DateTime dateTime)
+        {
+            return new PersianDateTime(dateTime);
+        }
+
+        /// <summary>
+        /// Determines whether two instances of PersianDateTime are equal
+        /// </summary>
+        /// <param name="pdt1">First instance</param>
+        /// <param name="pdt2">Second instance</param>
+        /// <returns></returns>
+        public static bool operator ==(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return pdt1.Year == pdt2.Year
+                && pdt1.Month == pdt2.Month
+                && pdt1.Day == pdt2.Day
+                && pdt1.Hour == pdt2.Hour
+                && pdt1.Minute == pdt2.Minute
+                && pdt1.Second == pdt2.Second
+                && pdt1.MilliSecond == pdt2.MilliSecond;
+        }
+
+        /// <summary>
+        /// Determines whether two instances of PersianDateTime are not equal
+        /// </summary>
+        /// <param name="pdt1">First instance</param>
+        /// <param name="pdt2">Second instance</param>
+        /// <returns></returns>
+        public static bool operator !=(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return !(pdt1 == pdt2);
         }
     }
 }
