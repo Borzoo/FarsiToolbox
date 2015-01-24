@@ -471,7 +471,7 @@ namespace FarsiToolboxTests
         public void GreaterOperator(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
         {
             var map = new Func<int, bool>((result) => result > 0);
-            Assert.Equal(map(expected), pdt1 > pdt2);
+            Assert.Equal(expected > 0, pdt1 > pdt2);
         }
 
         [Theory]
@@ -479,39 +479,35 @@ namespace FarsiToolboxTests
         public void GreaterEqualOperator(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
         {
             var map = new Func<int, bool>((result) => result >= 0);
-            Assert.Equal(map(expected), pdt1 >= pdt2);
+            Assert.Equal(expected >= 0, pdt1 >= pdt2);
         }
 
         [Theory]
         [PropertyData("PersianDateTimeAndPersianDateTimeCompareToTest")]
         public void LessOperator(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
         {
-            var map = new Func<int, bool>((result) => result < 0);
-            Assert.Equal(map(expected), pdt1 < pdt2);
+            Assert.Equal(expected < 0, pdt1 < pdt2);
         }
 
         [Theory]
         [PropertyData("PersianDateTimeAndPersianDateTimeCompareToTest")]
         public void LessEqualOperator(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
         {
-            var map = new Func<int, bool>((result) => result <= 0);
-            Assert.Equal(map(expected), pdt1 <= pdt2);
+            Assert.Equal(expected <= 0, pdt1 <= pdt2);
         }
 
         [Theory]
         [PropertyData("PersianDateTimeAndPersianDateTimeCompareToTest")]
         public void EqualOperator(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
         {
-            var map = new Func<int, bool>((result) => result == 0);
-            Assert.Equal(map(expected), pdt1 == pdt2);
+            Assert.Equal(expected == 0, pdt1 == pdt2);
         }
 
         [Theory]
         [PropertyData("PersianDateTimeAndPersianDateTimeCompareToTest")]
         public void NotEqualOperator(PersianDateTime pdt1, PersianDateTime pdt2, int expected)
         {
-            var map = new Func<int, bool>((result) => result != 0);
-            Assert.Equal(map(expected), pdt1 != pdt2);
+            Assert.Equal(expected != 0, pdt1 != pdt2);
         }
     }
 }
