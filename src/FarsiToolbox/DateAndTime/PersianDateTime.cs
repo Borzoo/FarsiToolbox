@@ -385,5 +385,49 @@ namespace FarsiToolbox.DateAndTime
         {
             return !(pdt1 == pdt2);
         }
+
+        /// <summary>
+        /// Determines whether one instance of PersianDateTime is earlier than the other instance
+        /// </summary>
+        /// <param name="pdt1"></param>
+        /// <param name="pdt2"></param>
+        /// <returns></returns>
+        public static bool operator <(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return pdt1.CompareTo(pdt2) < 0;
+        }
+
+        /// <summary>
+        /// Determines whether one instance of PersianDateTime is earlier than or the same as the other instance
+        /// </summary>
+        /// <param name="pdt1"></param>
+        /// <param name="pdt2"></param>
+        /// <returns></returns>
+        public static bool operator <=(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return pdt1.CompareTo(pdt2) <= 0;
+        }
+
+        /// <summary>
+        /// Determines whether one instance of PersianDateTime is later than the other instance
+        /// </summary>
+        /// <param name="pdt1"></param>
+        /// <param name="pdt2"></param>
+        /// <returns></returns>
+        public static bool operator >(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return pdt1.CompareTo(pdt2) > 0;
+        }
+
+        /// <summary>
+        /// Determines whether one instance of PersianDateTime is later than or the same as the other instance
+        /// </summary>
+        /// <param name="pdt1"></param>
+        /// <param name="pdt2"></param>
+        /// <returns></returns>
+        public static bool operator >=(PersianDateTime pdt1, PersianDateTime pdt2)
+        {
+            return pdt1.CompareTo(pdt2) >= 0;
+        }
     }
 }
