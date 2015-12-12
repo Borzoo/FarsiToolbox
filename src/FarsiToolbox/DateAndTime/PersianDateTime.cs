@@ -18,7 +18,7 @@ namespace FarsiToolbox.DateAndTime
         private static SystemClock _clock;
 
         /// <summary>
-        /// Gets of sets the current clock of the system.
+        /// Gets or sets the current clock of the system.
         /// </summary>
         internal static SystemClock Clock
         {
@@ -428,6 +428,18 @@ namespace FarsiToolbox.DateAndTime
         public static bool operator >=(PersianDateTime pdt1, PersianDateTime pdt2)
         {
             return pdt1.CompareTo(pdt2) >= 0;
+        }
+
+
+        /// <summary>
+        /// Parses a Persian date and time from string and returns a valid <see cref="PersianDateTime"/> instance.
+        /// </summary>
+        /// <param name="date">A persian date and time to parse.</param>
+        /// <returns></returns>
+        public static PersianDateTime Parse(string date)
+        {
+            var parser = new PersianDateTimeParser();
+            return parser.Parse(date);
         }
     }
 }

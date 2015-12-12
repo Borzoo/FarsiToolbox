@@ -40,6 +40,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateAndTime\PersianDateTimeParser.cs" />
     <Compile Include="DateAndTime\SystemClock.cs" />
     <Compile Include="DateAndTime\PersianDateTime.cs" />
     <Compile Include="DateAndTime\PersianDateTimeFormatter.cs" />

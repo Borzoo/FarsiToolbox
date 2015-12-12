@@ -509,5 +509,37 @@ namespace FarsiToolboxTests
         {
             Assert.Equal(expected != 0, pdt1 != pdt2);
         }
+        
+        [Theory(DisplayName = "PersianDateTime.Parse")]
+        [InlineData("1-1-1 12:00 am", 1401, 1, 1, 0, 0, 0, 0)]
+        [InlineData("01-1-1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0)]
+        [InlineData("1/1/1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0)]
+        [InlineData("01/1/1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0)]
+        [InlineData("1-1-1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0)]
+        [InlineData("01-1-1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0)]
+        [InlineData("1/2/31 12:00 pm", 1401, 2, 31, 12, 0, 0, 0)]
+        [InlineData("01/2/31 12:00 pm", 1401, 2, 31, 12, 0, 0, 0)]
+        [InlineData("49/2/31 12:00 pm", 1449, 2, 31, 12, 0, 0, 0)]
+        [InlineData("50/2/31 12:00 pm", 1350, 2, 31, 12, 0, 0, 0)]
+        [InlineData("94-1-1 am 12:6", 1394, 1, 1, 0, 6, 0, 0)]
+        [InlineData("94-1-1 PM 3:6", 1394, 1, 1, 15, 6, 0, 0)]
+        [InlineData("94-1-1 PM 10:6", 1394, 1, 1, 22, 6, 0, 0)]
+        [InlineData("94-1-1 13:00", 1394, 1, 1, 13, 0, 0, 0)]
+        [InlineData("1394-1-1 11:00 am", 1394, 1, 1, 11, 0, 0, 0)]
+        [InlineData("94-12-29 00:00", 1394, 12, 29, 0, 0, 0, 0)]
+        [InlineData("00/05/31 13:10:52", 1400, 5, 31, 13, 10, 52, 0)]
+        [InlineData("99/10/30 11:12:33 PM", 1399, 10, 30, 23, 12, 33, 0)]
+        public void ParsePersianDateTime(string persianDateTimeStr, int year, int month, int day, int hour, int minute, int second, int milliseconds)
+        {
+            var persianDateTime = PersianDateTime.Parse(persianDateTimeStr);
+
+            Assert.Equal(persianDateTime.Year, year);
+            Assert.Equal(persianDateTime.Month, month);
+            Assert.Equal(persianDateTime.Day, day);
+            Assert.Equal(persianDateTime.Hour, hour);
+            Assert.Equal(persianDateTime.Minute, minute);
+            Assert.Equal(persianDateTime.Second, second);
+            Assert.Equal(persianDateTime.MilliSecond, milliseconds);
+        }
     }
 }
