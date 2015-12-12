@@ -39,7 +39,13 @@ namespace FarsiToolbox.DateAndTime
                 {
                     // Use .NET time parser
                     var timeString = dateTimeStr.Substring(matchResult.Length);
-                    var time = DateTime.Parse(timeString);
+                    DateTime time;
+                    var isValidTime = DateTime.TryParse(timeString, out time);
+                    if(!isValidTime)
+                    {
+                        dateTime = new PersianDateTime();
+                        return isValidTime;
+                    }
 
                     dateTime = new PersianDateTime(year, month, day, time.Hour, time.Minute, time.Second, time.Millisecond);
                 }

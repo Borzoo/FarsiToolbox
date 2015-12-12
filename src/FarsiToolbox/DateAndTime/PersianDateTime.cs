@@ -441,5 +441,17 @@ namespace FarsiToolbox.DateAndTime
             var parser = new PersianDateTimeParser();
             return parser.Parse(date);
         }
+
+        /// <summary>
+        ///  Converts the specified string representation of a Persian date and time to its PersianDateTime 
+        ///  equivalent and returns a value that indicates whether the conversion succeeded.</summary>
+        /// <param name="date">Persian date string to convert.</param>
+        /// <param name="persianDate">Initials a <see cref="PersianDateTime"/> instance.</param>
+        /// <returns></returns>
+        public static bool TryParse(string date, out PersianDateTime persianDate)
+        {
+            var parser = new PersianDateTimeParser();
+            return parser.TryParse(date, out persianDate);
+        }
     }
 }
