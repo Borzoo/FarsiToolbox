@@ -16,43 +16,57 @@ namespace FarsiToolbox.DateAndTime
 
         public bool TryParse(string dateTimeStr, out PersianDateTime dateTime)
         {
-            var regex = new Regex(PersianDatePattern);
-            var matchResult = regex.Match(dateTimeStr);
-            if (!matchResult.Success)
+            try
             {
-                dateTime = new PersianDateTime();
-            }
-            else
-            {
-                var year = int.Parse(matchResult.Groups["year"].Value);
-
-                // TODO: This is subjective. Improve it if you have any better idea and make sure you've updated related UnitTests.
-                if (year < 50)
-                    year = 1400 + year;
-                else if (year >= 50 && year <= 99)
-                    year = 1300 + year;
-
-                var month = int.Parse(matchResult.Groups["month"].Value);
-                var day = int.Parse(matchResult.Groups["day"].Value);
-
-                if (dateTimeStr.Length > matchResult.Length)
+                if (string.IsNullOrWhiteSpace(dateTimeStr))
                 {
-                    // Use .NET time parser
-                    var timeString = dateTimeStr.Substring(matchResult.Length);
-                    DateTime time;
-                    var isValidTime = DateTime.TryParse(timeString, out time);
-                    if(!isValidTime)
-                    {
-                        dateTime = new PersianDateTime();
-                        return isValidTime;
-                    }
+                    dateTime = new PersianDateTime();
+                    return false;
+                }
 
-                    dateTime = new PersianDateTime(year, month, day, time.Hour, time.Minute, time.Second, time.Millisecond);
+                var regex = new Regex(PersianDatePattern);
+                var matchResult = regex.Match(dateTimeStr);
+                if (!matchResult.Success)
+                {
+                    dateTime = new PersianDateTime();
                 }
                 else
-                    dateTime = new PersianDateTime(year, month, day);
+                {
+                    var year = int.Parse(matchResult.Groups["year"].Value);
+
+                    // TODO: This is subjective. Improve it if you have any better idea and make sure you've updated related UnitTests.
+                    if (year < 50)
+                        year = 1400 + year;
+                    else if (year >= 50 && year <= 99)
+                        year = 1300 + year;
+
+                    var month = int.Parse(matchResult.Groups["month"].Value);
+                    var day = int.Parse(matchResult.Groups["day"].Value);
+
+                    if (dateTimeStr.Length > matchResult.Length)
+                    {
+                        // Use .NET time parser
+                        var timeString = dateTimeStr.Substring(matchResult.Length);
+                        DateTime time;
+                        var isValidTime = DateTime.TryParse(timeString, out time);
+                        if (!isValidTime)
+                        {
+                            dateTime = new PersianDateTime();
+                            return isValidTime;
+                        }
+
+                        dateTime = new PersianDateTime(year, month, day, time.Hour, time.Minute, time.Second, time.Millisecond);
+                    }
+                    else
+                        dateTime = new PersianDateTime(year, month, day);
+                }
+                return matchResult.Success;
             }
-            return matchResult.Success;
+            catch
+            {
+                return false;
+                dateTime = new PersianDateTime();
+            }
         }
 
         public PersianDateTime Parse(string dateTime)

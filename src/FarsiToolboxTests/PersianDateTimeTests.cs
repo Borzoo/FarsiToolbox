@@ -544,6 +544,7 @@ namespace FarsiToolboxTests
         }
 
         [Theory(DisplayName = "PersianDateTime.TryParse")]
+        [InlineData(null, 0001, 1, 1, 0, 0, 0, 0, false)]
         [InlineData("1-1-1 12:00 am", 1401, 1, 1, 0, 0, 0, 0, true)]
         [InlineData("01-1-1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0, true)]
         [InlineData("1/1/1 12:00 pm", 1401, 1, 1, 12, 0, 0, 0, true)]
